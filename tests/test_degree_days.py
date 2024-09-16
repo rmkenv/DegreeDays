@@ -1,4 +1,3 @@
-%%writefile /content/degree_days/tests/test_degree_days.py
 import os
 import unittest
 import pandas as pd
