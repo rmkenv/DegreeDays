@@ -1,36 +1,22 @@
-# degree_days.py
+import pandas as pd
 
 def convert_base_temperature(base_temp_f):
-    """
-    Convert the base temperature from Fahrenheit to Celsius.
-    """
-    return (base_temp_f - 32) * 5.0 / 9.0
+    return (base_temp_f - 32) * 5/9
 
 def calculate_mean_temperature(df):
-    """
-    Calculate the mean temperature (TAVG) from daily minimum and maximum temperatures.
-    """
-    df['TAVG'] = (df['tmax'] + df['tmin']) / 2
+    if 'tavg' in df.columns:
+        df['TMEAN'] = df['tavg']
+    elif 'tmax' in df.columns and 'tmin' in df.columns:
+        df['TMEAN'] = (df['tmax'] + df['tmin']) / 2
+    else:
+        raise ValueError("DataFrame must contain either 'tavg' column or both 'tmax' and 'tmin' columns")
     return df
 
-def calculate_degree_days(df, base_temp_c, degree_type='HDD'):
-    """
-    Calculate Heating Degree Days (HDD) or Cooling Degree Days (CDD).
-    
-    Parameters:
-    - df: pandas DataFrame containing the temperature data
-    - base_temp_c: base temperature in Celsius
-    - degree_type: 'HDD' for heating degree days or 'CDD' for cooling degree days
-    
-    Returns:
-    - DataFrame with DegreeDays calculated
-    """
+def calculate_degree_days(df, base_temp, degree_type='HDD'):
     if degree_type == 'HDD':
-        df['DegreeDays'] = base_temp_c - df['TMEAN']
+        df['DegreeDays'] = df['TMEAN'].apply(lambda x: max(0, base_temp - x))
     elif degree_type == 'CDD':
-        df['DegreeDays'] = df['TMEAN'] - base_temp_c
+        df['DegreeDays'] = df['TMEAN'].apply(lambda x: max(0, x - base_temp))
     else:
-        raise ValueError("degree_type must be 'HDD' or 'CDD'")
-    
-    df['DegreeDays'] = df['DegreeDays'].apply(lambda x: max(x, 0))  # HDD or CDD cannot be negative
+        raise ValueError("degree_type must be either 'HDD' or 'CDD'")
     return df
