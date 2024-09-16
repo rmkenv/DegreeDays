@@ -8,7 +8,7 @@ setup(
     description='A library for calculating Heating and Cooling Degree Days for energy analysis.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/yourusername/degree_days',  # You might want to update this URL
+    url='https://github.com/rmkenv/degree_days',  # You might want to update this URL
     packages=find_packages(),
     install_requires=[
         'pandas>=1.1',
