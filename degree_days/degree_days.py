@@ -8,11 +8,9 @@ def convert_base_temperature(base_temp_f):
 
 def calculate_mean_temperature(df):
     """
-    Calculate the mean temperature (TMEAN) from daily minimum and maximum temperatures.
+    Calculate the mean temperature (TAVG) from daily minimum and maximum temperatures.
     """
-    df['TMEAN'] = (df['tmax'] + df['tmin']) / 2
-    df['TMEAN'].fillna(df['tavg'], inplace=True)  # Use tavg if available
-    df.dropna(subset=['TMEAN'], inplace=True)
+    df['TAVG'] = (df['tmax'] + df['tmin']) / 2
     return df
 
 def calculate_degree_days(df, base_temp_c, degree_type='HDD'):
