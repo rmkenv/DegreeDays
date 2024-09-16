@@ -1,6 +1,6 @@
-# degreedays
+# degree_days
 
-`degreedays` is a Python library for calculating Heating Degree Days (HDD) and Cooling Degree Days (CDD) using weather data from Meteostat.
+`degree_days` is a Python library for calculating Heating Degree Days (HDD) and Cooling Degree Days (CDD) using weather data from Meteostat.
 
 ## Installation
 
