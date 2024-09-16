@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include tests *.py
+recursive-include degree_days *.py
+recursive-include degree_days/data *.csv *.json
+include degree_days/*.py
