@@ -2,6 +2,7 @@
 import os
 import pandas as pd
 from meteostat import Daily, Point
+from datetime import datetime
 
 def fetch_temperature_data(start_date, end_date, latitude, longitude):
   """
@@ -23,7 +24,10 @@ def fetch_temperature_data(start_date, end_date, latitude, longitude):
       raise ValueError("You must set your Meteostat API key as an environment variable 'METEOSTAT_API_KEY'.")
 
   # Meteostat now uses the API key automatically if it's set as an environment variable
-
+ # Convert string dates to datetime objects
+  start_date = datetime.strptime(start_date, '%Y-%m-%d')
+  end_date = datetime.strptime(end_date, '%Y-%m-%d')
+  
   location = Point(latitude, longitude)
   data = Daily(location, start_date, end_date)
   data = data.fetch()
