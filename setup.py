@@ -15,7 +15,7 @@ setup(
         'numpy>=1.19',
         'scikit-learn>=0.24',
         'matplotlib>=3.3',
-        'meteostat>=1.5'
+        'meteostat>=1.6.8'
     ],
     extras_require={
         'dev': [  # Added a 'dev' extra for development dependencies
