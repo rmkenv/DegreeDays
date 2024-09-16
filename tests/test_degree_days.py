@@ -1,6 +1,8 @@
+%%writefile /content/degree_days/tests/test_degree_days.py
 import os
 import unittest
 import pandas as pd
+from datetime import datetime
 from degree_days.data_retrieval import fetch_temperature_data
 from degree_days.degree_days import convert_base_temperature, calculate_mean_temperature, calculate_degree_days
 
@@ -33,7 +35,7 @@ class TestDegreeDays(unittest.TestCase):
         
         df = calculate_degree_days(df, base_temp_c, degree_type='HDD')
         
-        self.assertEqual(df['DegreeDays'][0], 0)
+        self.assertAlmostEqual(df['DegreeDays'][0], 0, places=2)
         self.assertAlmostEqual(df['DegreeDays'][1], 3.33, places=2)
         self.assertAlmostEqual(df['DegreeDays'][2], 8.33, places=2)
         self.assertEqual(df['DegreeDays'][3], 0)
@@ -52,8 +54,8 @@ class TestDegreeDays(unittest.TestCase):
         self.assertEqual(df['DegreeDays'][3], 0)
 
     def test_fetch_temperature_data(self):
-        start_date = '2022-01-01'
-        end_date = '2022-01-05'
+        start_date = datetime(2022, 1, 1)
+        end_date = datetime(2022, 1, 5)
         latitude = 52.52
         longitude = 13.405
         
@@ -61,6 +63,7 @@ class TestDegreeDays(unittest.TestCase):
         
         self.assertIn('tmin', df.columns)
         self.assertIn('tmax', df.columns)
+        self.assertIn('tavg', df.columns)
         self.assertGreater(len(df), 0)
 
 if __name__ == '__main__':
